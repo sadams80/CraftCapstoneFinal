@@ -1,0 +1,33 @@
+﻿@model MyCraftProjectSharingApp.Models.ViewModel
+@using MyCraftProjectSharingApp.Models
+@{
+    ViewBag.Title = "ViewHouses";
+}
+<div class="text-center">
+    <h2>House Hourglasses</h2>
+</div>
+<br />
+<div id="hourglassimage">
+</div>
+<br />
+@if (TempData["ResetSuccess"] != null)
+{
+    <p><font color="red">@TempData["ResetSuccess"].ToString()</font></p>
+}
+<table class="table" tableFormat>
+    @foreach (Houses house in Model.Houses)
+    {
+        <tr>
+            <th>@Html.DisplayFor(m => house.HouseName)</th>
+            <th>Points</th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(m => house.Motto)</td>
+            <td>@Html.DisplayFor(m => house.Points)</td>
+        </tr>
+    }
+</table>
+@if ((int)Session["RoleID"] == 3)
+{
+    @Html.ActionLink("Reset Points", "ResetPoints", "Houses", htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+}

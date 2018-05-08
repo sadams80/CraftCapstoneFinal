@@ -1,0 +1,16 @@
+C:\Users\Onshore\Documents\Visual Studio 2015\Projects\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Users\Onshore\Documents\Visual Studio 2015\Projects\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Users\Onshore\Documents\Visual Studio 2015\Projects\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\Onshore\Documents\Visual Studio 2015\Projects\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\Onshore\Documents\Visual Studio 2015\Projects\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojResolveAssemblyReference.cache
+C:\Users\Onshore\Documents\Visual Studio 2015\Projects\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Users\Onshore\Documents\Visual Studio 2015\Projects\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojResolveAssemblyReference.cache
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
