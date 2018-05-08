@@ -11,7 +11,7 @@
 {
     if (Session["UserId"] != null && (int)Session["RoleID"] != 1)
     {
-        if(TempData["CraftError"] != null)
+        if (TempData["CraftError"] != null)
         {
             <p><font color="red">@TempData["CraftError"].ToString()</font></p>
         }
@@ -19,20 +19,24 @@
         {
             <p><font color="red">@TempData["CraftSuccess"].ToString()</font></p>
         }
-    @Html.HiddenFor(m => m.SingleCraft.User_ID)
-    <div>
+        @Html.HiddenFor(m => m.SingleCraft.User_ID)
         <div>
-            @Html.LabelFor(m => m.SingleCraft.CraftName, new { @class = "LabelFormat" })
-            @Html.TextBoxFor(m => m.SingleCraft.CraftName, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleCraft.CraftName)
+            <div>
+                @Html.ValidationMessageFor(m => m.SingleCraft.CraftName)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.SingleCraft.CraftName, new { @class = "LabelFormat" })
+                @Html.TextBoxFor(m => m.SingleCraft.CraftName, new { @class = "form-control TextboxFormat" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.SingleCraft.Description)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.SingleCraft.Description, new { @class = "LabelFormat" })
+                @Html.TextAreaFor(m => m.SingleCraft.Description, new { @class = "form-control TextboxFormat" })
+            </div>
+            <br />
+            <input type="submit" value="Add" />
         </div>
-        <div>
-            @Html.LabelFor(m => m.SingleCraft.Description, new { @class = "LabelFormat" })
-            @Html.TextAreaFor(m => m.SingleCraft.Description, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleCraft.Description)
-        </div>
-        <br />
-        <input type="submit" value="Add" />
-    </div>
     }
 }

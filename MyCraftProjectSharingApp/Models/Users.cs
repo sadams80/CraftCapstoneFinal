@@ -9,21 +9,25 @@ namespace MyCraftProjectSharingApp.Models
     public class Users
     {
         public int User_ID { get; set; }
+        [Required(ErrorMessage = "Please enter a first name.")]
         [MaxLength(20, ErrorMessage = "Must be no longer than 20 characters.")]
         [MinLength(3, ErrorMessage = "Must be longer than 3 characters.")]
         [RegularExpression(@"^[a-zA-Z-'\s]+$", ErrorMessage = "Numbers and symbols are not allowed.")]
         [Display(Name = "First Name:")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Please enter a last name.")]
         [MaxLength(25, ErrorMessage = "Must be no longer than 25 characters.")]
         [MinLength(3, ErrorMessage = "Must be longer than 3 characters.")]
         [RegularExpression(@"^[a-zA-Z-'\s]+$", ErrorMessage = "Numbers and symbols are not allowed.")]
         [Display(Name = "Last Name:")]
         public string LastName { get; set; }
+        [Required(ErrorMessage = "Please enter an age.")]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Only numbers allowed.")]
         [Display(Name = "Age:")]
         public int? Age { get; set; }
         [Display(Name = "Gender:")]
         public string Gender { get; set; }
+        [Required(ErrorMessage = "Please enter your email.")]
         [MaxLength(100, ErrorMessage = "Must be no longer than 100 characters.")]
         [MinLength(10, ErrorMessage = "Must be 10 characters or longer.")]
         [EmailAddress]
@@ -42,6 +46,7 @@ namespace MyCraftProjectSharingApp.Models
         [RegularExpression(@"^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).*$", ErrorMessage = "You must have at least one uppercase and one special character.")]
         [Display(Name = "Password:")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Please choose a house.")]
         [Display(Name = "House:")]
         public int House_ID { get; set; }
         public string HouseName { get; set; }

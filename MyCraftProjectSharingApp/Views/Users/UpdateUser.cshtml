@@ -21,19 +21,28 @@
     <div>
         <p>Please re-enter the following information.</p>
         <div>
+            @Html.ValidationMessageFor(m => m.SingleUser.FirstName)
+        </div>
+        <div>
             @Html.LabelFor(m => m.SingleUser.FirstName, new { @class = "LabelFormat" })
             @Html.TextBoxFor(m => m.SingleUser.FirstName, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleUser.FirstName)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.SingleUser.LastName)
         </div>
         <div>
             @Html.LabelFor(m => m.SingleUser.LastName, new { @class = "LabelFormat" })
             @Html.TextBoxFor(m => m.SingleUser.LastName, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleUser.LastName)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.SingleUser.Age)
         </div>
         <div>
             @Html.LabelFor(m => m.SingleUser.Age, new { @class = "LabelFormat" })
             @Html.TextBoxFor(m => m.SingleUser.Age, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleUser.Age)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.SingleUser.Gender)
         </div>
         <div>
             @Html.LabelFor(m => m.SingleUser.Gender, new { @class = "LabelFormat" })
@@ -61,22 +70,27 @@
                 });
             }
             @Html.DropDownListFor(m => m.SingleUser.Gender, genderItems, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleUser.Gender)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.SingleUser.Email)
         </div>
         <div>
             @Html.LabelFor(m => m.SingleUser.Email, new { @class = "LabelFormat" })
             @Html.TextBoxFor(m => m.SingleUser.Email, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleUser.Email)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.SingleUser.Username)
         </div>
         <div>
             @Html.LabelFor(m => m.SingleUser.Username, new { @class = "LabelFormat" })
             @Html.TextBoxFor(m => m.SingleUser.Username, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleUser.Username)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.SingleUser.Password)
         </div>
         <div>
             @Html.LabelFor(m => m.SingleUser.Password, new { @class = "LabelFormat" })
             @Html.TextBoxFor(m => m.SingleUser.Password, new { @class = "form-control TextboxFormat" })
-            @Html.ValidationMessageFor(m => m.SingleUser.Password)
         </div>
         <div>
             @if ((int)Session["RoleID"] != 3)
@@ -102,12 +116,8 @@
                 }
                 @Html.DropDownListFor(m => m.SingleUser.Role_ID, userRoles, new { @class = "form-control TextboxFormat" })
             }
-
         </div>
-
         <br />
-
         <input type="submit" value="Update" />
-
     </div>
-                }
+}

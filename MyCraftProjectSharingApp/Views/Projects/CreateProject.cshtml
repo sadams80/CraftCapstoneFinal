@@ -15,11 +15,15 @@
         <div>
             <div>
                 @Html.ValidationMessageFor(m => m.SingleProject.ProjectName)
+            </div>
+            <div>
                 @Html.LabelFor(m => m.SingleProject.ProjectName, new { @class = "LabelFormat" })
                 @Html.TextBoxFor(m => m.SingleProject.ProjectName, new { @class = "form-control TextboxFormat" })
             </div>
             <div>
                 @Html.ValidationMessageFor(m => m.SingleProject.Craft_ID)
+            </div>
+            <div>
                 @Html.LabelFor(m => m.SingleProject.Craft_ID, new { @class = "LabelFormat" })
                 @{
                     List<SelectListItem> craftItems = new List<SelectListItem>();
@@ -40,6 +44,8 @@
             </div>
             <div>
                 @Html.ValidationMessageFor(m => m.SingleProject.Difficulty_ID)
+            </div>
+            <div>
                 @Html.LabelFor(m => m.SingleProject.Difficulty_ID, new { @class = "LabelFormat" })
                 @{
                     List<SelectListItem> projectItems = new List<SelectListItem>();
@@ -60,6 +66,8 @@
             </div>
             <div>
                 @Html.ValidationMessageFor(m => m.SingleProject.ProjectBody)
+            </div>
+            <div>
                 @Html.LabelFor(m => m.SingleProject.ProjectBody, new { @class = "LabelFormat" })
                 @Html.TextAreaFor(m => m.SingleProject.ProjectBody, new { @class = "form-control TextboxFormat" })
             </div>

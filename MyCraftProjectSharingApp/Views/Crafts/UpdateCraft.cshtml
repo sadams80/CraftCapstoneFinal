@@ -23,14 +23,18 @@
         @Html.HiddenFor(m => m.SingleCraft.Craft_ID)
         <div>
             <div>
+                @Html.ValidationMessageFor(m => m.SingleCraft.CraftName)
+            </div>
+            <div>
                 @Html.LabelFor(m => m.SingleCraft.CraftName, new { @class = "LabelFormat" })
                 @Html.TextBoxFor(m => m.SingleCraft.CraftName, new { @class = "form-control TextboxFormat" })
-                @Html.ValidationMessageFor(m => m.SingleCraft.CraftName)
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.SingleCraft.Description)
             </div>
             <div>
                 @Html.LabelFor(m => m.SingleCraft.Description, new { @class = "LabelFormat" })
                 @Html.TextAreaFor(m => m.SingleCraft.Description, new { @class = "form-control TextboxFormat" })
-                @Html.ValidationMessageFor(m => m.SingleCraft.Description)
             </div>
             <br />
             <input type="submit" value="Update" />
