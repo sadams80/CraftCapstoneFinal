@@ -10,22 +10,37 @@ namespace BusinessLogicLayer.BusinessLogicMappers
 {
     public class BusinessLogicMapperRoles
     {
+        #region Mappers
         public DataAccessRoles MapRole(BusinessLogicRoles bRoles)
         {
-            DataAccessRoles dRoles = new DataAccessRoles();
-            dRoles.Role_ID = bRoles.Role_ID;
-            dRoles.RoleName = bRoles.RoleName;
+            if (bRoles == null)
+            {
+                return null;
+            }
+            DataAccessRoles dRoles = new DataAccessRoles
+            {
+                Role_ID = bRoles.Role_ID,
+                RoleName = bRoles.RoleName
+            };
             return dRoles;
         }
 
         public BusinessLogicRoles MapRole(DataAccessRoles dRoles)
         {
-            BusinessLogicRoles bRoles = new BusinessLogicRoles();
-            bRoles.Role_ID = dRoles.Role_ID;
-            bRoles.RoleName = dRoles.RoleName;
+            if (dRoles == null)
+            {
+                return null;
+            }
+            BusinessLogicRoles bRoles = new BusinessLogicRoles
+            {
+                Role_ID = dRoles.Role_ID,
+                RoleName = dRoles.RoleName
+            };
             return bRoles;
         }
+        #endregion
 
+        #region Table Mappers
         public List<BusinessLogicRoles> MapRoles(List<DataAccessRoles> dRoles)
         {
             List<BusinessLogicRoles> bRoles = new List<BusinessLogicRoles>();
@@ -45,5 +60,6 @@ namespace BusinessLogicLayer.BusinessLogicMappers
             }
             return dRoles;
         }
+        #endregion
     }
 }

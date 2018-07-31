@@ -17,6 +17,7 @@ namespace DataAccessLayer
         static string _connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
         static string _errorLog = ConfigurationManager.ConnectionStrings["ErrorLog"].ConnectionString;
         static DataAccessMapperProjects _projectsMapper = new DataAccessMapperProjects();
+
         public void AddProject(DataAccessProjects projectToAdd)
         {
             SqlConnection connection = new SqlConnection(_connectionString);

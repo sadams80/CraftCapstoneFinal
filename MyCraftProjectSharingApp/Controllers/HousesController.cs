@@ -12,19 +12,28 @@ namespace MyCraftProjectSharingApp.Controllers
 {
     public class HousesController : Controller
     {
+        #region Instances
         // GET: Houses
         static HousesLogic _housesBusinessLogic = new HousesLogic();
         static MapperHouses _housesMapper = new MapperHouses();
+        #endregion
+
+        #region Index
         public ActionResult Index()
         {
             return View("Index", "Home", new { are = "" });
         }  //return to main homepage
+        #endregion
+
+        #region Gets
         public ActionResult ViewHouses()
         {
             if (Session["RoleID"] != null)
             {
-                ViewModel houses = new ViewModel();
-                houses.Houses = _housesMapper.MapHouses(_housesBusinessLogic.GetHouses());
+                ViewModel houses = new ViewModel
+                {
+                    Houses = _housesMapper.MapHouses(_housesBusinessLogic.GetHouses())
+                };
                 return View(houses);
             }
             else
@@ -32,7 +41,9 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         }  //view houses for all users
+        #endregion
 
+        #region Points
         [HttpPost]
         public void AddPoints(long points, int houseId)
         {
@@ -49,5 +60,6 @@ namespace MyCraftProjectSharingApp.Controllers
             }
             return RedirectToAction("ViewHouses", new { area = "" });
         }
+        #endregion
     }
 }

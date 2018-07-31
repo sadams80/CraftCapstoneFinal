@@ -10,24 +10,41 @@ namespace BusinessLogicLayer.BusinessLogicMappers
 {
     public class BusinessLogicMapperHouses
     {
+        #region Mappers
         public DataAccessHouses MapHouse(BusinessLogicHouses bHouse)
         {
-            DataAccessHouses dHouse = new DataAccessHouses();
-            dHouse.House_ID = bHouse.House_ID;
-            dHouse.HouseName = bHouse.HouseName;
-            dHouse.Motto = bHouse.Motto;
-            dHouse.Points = bHouse.Points;
+            if (bHouse == null)
+            {
+                return null;
+            }
+            DataAccessHouses dHouse = new DataAccessHouses
+            {
+                House_ID = bHouse.House_ID,
+                HouseName = bHouse.HouseName,
+                Motto = bHouse.Motto,
+                Points = bHouse.Points
+            };
             return dHouse;
         }
+
         public BusinessLogicHouses MapHouse(DataAccessHouses dHouse)
         {
-            BusinessLogicHouses bHouse = new BusinessLogicHouses();
-            bHouse.House_ID = dHouse.House_ID;
-            bHouse.HouseName = dHouse.HouseName;
-            bHouse.Motto = dHouse.Motto;
-            bHouse.Points = dHouse.Points;
+            if (dHouse == null)
+            {
+                return null;
+            }
+            BusinessLogicHouses bHouse = new BusinessLogicHouses
+            {
+                House_ID = dHouse.House_ID,
+                HouseName = dHouse.HouseName,
+                Motto = dHouse.Motto,
+                Points = dHouse.Points
+            };
             return bHouse;
         }
+        #endregion
+
+        #region Table Mappers
         public List<BusinessLogicHouses> MapHouses(List<DataAccessHouses> dHouses)
         {
             List<BusinessLogicHouses> bHouses = new List<BusinessLogicHouses>();
@@ -37,6 +54,7 @@ namespace BusinessLogicLayer.BusinessLogicMappers
             }
             return bHouses;
         }
+
         public List<DataAccessHouses> MapHouses(List<BusinessLogicHouses> bHouses)
         {
             List<DataAccessHouses> dHouses = new List<DataAccessHouses>();
@@ -46,5 +64,6 @@ namespace BusinessLogicLayer.BusinessLogicMappers
             }
             return dHouses;
         }
+        #endregion
     }
 }

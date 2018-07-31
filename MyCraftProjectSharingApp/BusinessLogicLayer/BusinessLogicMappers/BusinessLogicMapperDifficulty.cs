@@ -10,22 +10,37 @@ namespace BusinessLogicLayer.BusinessLogicMappers
 {
     public class BusinessLogicMapperDifficulty
     {
+        #region Mappers
         public DataAccessDifficulty MapDifficulty(BusinessLogicDifficulty bDifficulty)
         {
-            DataAccessDifficulty dDifficulty = new DataAccessDifficulty();
-            dDifficulty.Difficulty_ID = bDifficulty.Difficulty_ID;
-            dDifficulty.DifficultyLevel = bDifficulty.DifficultyLevel;
+            if (bDifficulty == null)
+            {
+                return null;
+            }
+            DataAccessDifficulty dDifficulty = new DataAccessDifficulty
+            {
+                Difficulty_ID = bDifficulty.Difficulty_ID,
+                DifficultyLevel = bDifficulty.DifficultyLevel
+            };
             return dDifficulty;
         }
 
         public BusinessLogicDifficulty MapDifficulty(DataAccessDifficulty dDifficulty)
         {
-            BusinessLogicDifficulty bDifficulty = new BusinessLogicDifficulty();
-            bDifficulty.Difficulty_ID = dDifficulty.Difficulty_ID;
-            bDifficulty.DifficultyLevel = dDifficulty.DifficultyLevel;
+            if (dDifficulty == null)
+            {
+                return null;
+            }
+            BusinessLogicDifficulty bDifficulty = new BusinessLogicDifficulty
+            {
+                Difficulty_ID = dDifficulty.Difficulty_ID,
+                DifficultyLevel = dDifficulty.DifficultyLevel
+            };
             return bDifficulty;
         }
+        #endregion
 
+        #region Table Mappers
         public List<BusinessLogicDifficulty> MapDifficulties(List<DataAccessDifficulty> dDifficulties)
         {
             List<BusinessLogicDifficulty> bDifficulties = new List<BusinessLogicDifficulty>();
@@ -45,5 +60,6 @@ namespace BusinessLogicLayer.BusinessLogicMappers
             }
             return dDifficulties;
         }
+        #endregion
     }
 }

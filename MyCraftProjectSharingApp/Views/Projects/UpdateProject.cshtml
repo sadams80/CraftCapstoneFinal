@@ -73,7 +73,7 @@
                 @Html.TextAreaFor(m => m.SingleProject.ProjectBody, new { @class = "form-control TextboxFormat" })
             </div>
             <br />
-            <input type="submit" value="Update" />
+            <input type="submit" value="Update" onclick="return confirm('Save changes?')"/>
         </div>
     }
 }

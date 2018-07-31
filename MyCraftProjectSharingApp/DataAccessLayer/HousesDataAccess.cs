@@ -17,6 +17,7 @@ namespace DataAccessLayer
         static string _connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
         static string _errorLog = ConfigurationManager.ConnectionStrings["ErrorLog"].ConnectionString;
         static DataAccessMapperHouses _housesMapper = new DataAccessMapperHouses();
+
         public void UpdateHousePoints(long points, int houseId)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
@@ -68,7 +69,6 @@ namespace DataAccessLayer
             }
             return _housesMapper.TableToListOfHouses(housesTable);
         }
-
         public void ResetPoints()
         {
             SqlConnection connection = new SqlConnection(_connectionString);

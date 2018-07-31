@@ -20,7 +20,7 @@ namespace BusinessLogicLayer
         }
         public BusinessLogicUsers GetUserByUsername(string username)
         {
-           return _userMapper.MapUser(_userDataAccess.GetUserByUsername(username));
+            return _userMapper.MapUser(_userDataAccess.GetUserByUsername(username));
         }
         public BusinessLogicUsers GetUserByUserId(int userId)
         {
@@ -28,10 +28,8 @@ namespace BusinessLogicLayer
         }
         public List<BusinessLogicUsers> GetUsers()
         {
-            List<BusinessLogicUsers> bUsers = new List<BusinessLogicUsers>();
-            List<DataAccessUsers> dUsers = new List<DataAccessUsers>();
-            dUsers = _userDataAccess.GetUsers();
-            bUsers = _userMapper.MapUsers(dUsers);
+            List<DataAccessUsers> dUsers = _userDataAccess.GetUsers();
+            List<BusinessLogicUsers> bUsers = _userMapper.MapUsers(dUsers);
             return bUsers;
         }
         public void DeleteUser(int userId)

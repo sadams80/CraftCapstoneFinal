@@ -14,3 +14,13 @@ C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\
 C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
 C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
 C:\Users\Onshore\Documents\Capstone\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojAssemblyReference.cache
+C:\Users\Onshore\source\repos\CraftCapstoneFinal\MyCraftProjectSharingApp\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete

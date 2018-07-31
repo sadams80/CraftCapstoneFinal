@@ -10,25 +10,42 @@ namespace BusinessLogicLayer.BusinessLogicMappers
 {
     public class BusinessLogicMapperCrafts
     {
+        #region Mappers
         public DataAccessCrafts MapCraft(BusinessLogicCrafts bCraft)
         {
-            DataAccessCrafts dCraft = new DataAccessCrafts();
-            dCraft.Craft_ID = bCraft.Craft_ID;
-            dCraft.CraftName = bCraft.CraftName;
-            dCraft.Description = bCraft.Description;
-            dCraft.User_ID = bCraft.User_ID;
+            if (bCraft == null)
+            {
+                return null;
+            }
+            DataAccessCrafts dCraft = new DataAccessCrafts
+            {
+                Craft_ID = bCraft.Craft_ID,
+                CraftName = bCraft.CraftName,
+                Description = bCraft.Description,
+                User_ID = bCraft.User_ID
+            };
             return dCraft;
         }
+
         public BusinessLogicCrafts MapCraft(DataAccessCrafts dCraft)
         {
-            BusinessLogicCrafts bCraft = new BusinessLogicCrafts();
-            bCraft.Craft_ID = dCraft.Craft_ID;
-            bCraft.CraftName = dCraft.CraftName;
-            bCraft.Description = dCraft.Description;
-            bCraft.User_ID = dCraft.User_ID;
-            bCraft.Username = dCraft.Username;
+            if (dCraft == null)
+            {
+                return null;
+            }
+            BusinessLogicCrafts bCraft = new BusinessLogicCrafts
+            {
+                Craft_ID = dCraft.Craft_ID,
+                CraftName = dCraft.CraftName,
+                Description = dCraft.Description,
+                User_ID = dCraft.User_ID,
+                Username = dCraft.Username
+            };
             return bCraft;
         }
+        #endregion
+
+        #region Table Mappers
         public List<BusinessLogicCrafts> MapCrafts(List<DataAccessCrafts> dCrafts)
         {
             List<BusinessLogicCrafts> bCrafts = new List<BusinessLogicCrafts>();
@@ -47,5 +64,6 @@ namespace BusinessLogicLayer.BusinessLogicMappers
             }
             return dCrafts;
         }
+        #endregion
     }
 }

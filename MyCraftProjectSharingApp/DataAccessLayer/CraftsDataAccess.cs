@@ -17,6 +17,7 @@ namespace DataAccessLayer
         static string _connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
         static string _errorLog = ConfigurationManager.ConnectionStrings["ErrorLog"].ConnectionString;
         static DataAccessMapperCrafts _mapper = new DataAccessMapperCrafts();
+
         public void AddCraft(DataAccessCrafts craftToAdd)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
@@ -71,27 +72,35 @@ namespace DataAccessLayer
         }
         public DataAccessCrafts GetCraftByCraftId(int craftId)
         {
-            DataAccessCrafts craft = new DataAccessCrafts();
-            foreach (DataAccessCrafts dCraft in GetCrafts())
-            {
-                if (craftId == dCraft.Craft_ID)
-                {
-                    craft = dCraft;
-                }
-            }
+            //DataAccessCrafts craft = new DataAccessCrafts();
+            //foreach (DataAccessCrafts dCraft in GetCrafts())
+            //{
+            //    if (craftId == dCraft.Craft_ID)
+            //    {
+            //        craft = dCraft;
+            //    }
+            //}
+            //return craft;
+            IList<DataAccessCrafts> craftsList = GetCrafts();  //IEnumerable list
+
+            var craft = craftsList.Where(u => u.Craft_ID == craftId).First();  //Linq query that sorts through the list and grabs the user by userId
             return craft;
         }
         public DataAccessCrafts GetCraftsByCraftName(string craftName)
         {
-            DataAccessCrafts dCrafts = new DataAccessCrafts();
-            foreach (DataAccessCrafts craft in GetCrafts())
-            {
-                if (craftName == craft.CraftName)
-                {
-                    dCrafts = craft;
-                }
-            }
-            return dCrafts;
+            //DataAccessCrafts dCraft = new DataAccessCrafts();
+            //foreach (DataAccessCrafts craft in GetCrafts())
+            //{
+            //    if (craftName == craft.CraftName)
+            //    {
+            //        dCraft = craft;
+            //    }
+            //}
+            //return dCraft;
+            IList<DataAccessCrafts> craftsList = GetCrafts();  //IEnumerable list
+
+            var craft = craftsList.Where(u => u.CraftName == craftName).First();  //Linq query that sorts through the list and grabs the user by userId
+            return craft;
         }
         public void UpdateCraft(int craftId, DataAccessCrafts craftToUpdate)
         {

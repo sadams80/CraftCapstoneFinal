@@ -11,21 +11,33 @@ namespace MyCraftProjectSharingApp.Mappers
     {
         public BusinessLogicCrafts MapCraft(Crafts craft)
         {
-            BusinessLogicCrafts bCraft = new BusinessLogicCrafts();
-            bCraft.Craft_ID = craft.Craft_ID;
-            bCraft.CraftName = craft.CraftName;
-            bCraft.Description = craft.Description;
-            bCraft.User_ID = craft.User_ID;
+            if (craft == null)
+            {
+                return null;
+            }
+            BusinessLogicCrafts bCraft = new BusinessLogicCrafts
+            {
+                Craft_ID = craft.Craft_ID,
+                CraftName = craft.CraftName,
+                Description = craft.Description,
+                User_ID = craft.User_ID
+            };
             return bCraft;
         }
         public Crafts MapCraft(BusinessLogicCrafts bCraft)
         {
-            Crafts craft = new Crafts();
-            craft.Craft_ID = bCraft.Craft_ID;
-            craft.CraftName = bCraft.CraftName;
-            craft.Description = bCraft.Description;
-            craft.User_ID = bCraft.User_ID;
-            craft.Username = bCraft.Username;
+            if (bCraft == null)
+            {
+                return null;
+            }
+            Crafts craft = new Crafts
+            {
+                Craft_ID = bCraft.Craft_ID,
+                CraftName = bCraft.CraftName,
+                Description = bCraft.Description,
+                User_ID = bCraft.User_ID,
+                Username = bCraft.Username
+            };
             return craft;
         }
         public List<Crafts> MapCrafts(List<BusinessLogicCrafts> bCrafts)

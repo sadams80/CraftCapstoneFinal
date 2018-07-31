@@ -17,6 +17,7 @@ namespace DataAccessLayer
         static string _connectionString = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
         static string _errorLog = ConfigurationManager.ConnectionStrings["ErrorLog"].ConnectionString;
         static DataAccessMapperUsers _mapper = new DataAccessMapperUsers();
+
         public void AddUser(DataAccessUsers userToAdd)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
@@ -77,26 +78,34 @@ namespace DataAccessLayer
         }
         public DataAccessUsers GetUserByUsername(string username)
         {
-            DataAccessUsers user = new DataAccessUsers();
-            foreach (DataAccessUsers dUser in GetUsers())
-            {
-                if(username == dUser.Username)
-                {
-                    user = dUser;
-                }
-            }
+            //DataAccessUsers user = new DataAccessUsers();
+            //foreach (DataAccessUsers dUser in GetUsers())
+            //{
+            //    if(username == dUser.Username)
+            //    {
+            //        user = dUser;
+            //    }
+            //}
+            //return user;
+            IList<DataAccessUsers> usersList = GetUsers();  //IEnumerable list
+
+            var user = usersList.Where(u => u.Username == username).FirstOrDefault();  //Linq query that sorts through the list and grabs the user by userId
             return user;
         }
         public DataAccessUsers GetUserByUserId(int userId)
         {
-            DataAccessUsers user = new DataAccessUsers();
-            foreach (DataAccessUsers dUser in GetUsers())
-            {
-                if (userId == dUser.User_ID)
-                {
-                    user = dUser;
-                }
-            }
+            //DataAccessUsers user = new DataAccessUsers();
+            //foreach (DataAccessUsers dUser in GetUsers())
+            //{
+            //    if (userId == dUser.User_ID)
+            //    {
+            //        user = dUser;
+            //    }
+            //}
+            //return user;
+            IList<DataAccessUsers> usersList = GetUsers();  //IEnumerable list
+
+            var user = usersList.Where(u => u.User_ID == userId).FirstOrDefault();  //Linq query that sorts through the list and grabs the user by userId
             return user;
         }
         public void DeleteUser(int userId)

@@ -10,7 +10,7 @@ namespace MyCraftProjectSharingApp.Controllers
 {
     public class ProjectsController : Controller
     {
-        // GET: Projects
+        #region Instances
         static ProjectsLogic _projectBusinessLogic = new ProjectsLogic();
         static CraftsLogic _craftBusinessLogic = new CraftsLogic();
         static UsersLogic _userBusinessLogic = new UsersLogic();
@@ -20,19 +20,27 @@ namespace MyCraftProjectSharingApp.Controllers
         static MapperUsers _userMapper = new MapperUsers();
         static MapperDifficulty _difficultyMapper = new MapperDifficulty();
         static HousesController _houseController = new HousesController();
+        #endregion
+
+        #region Index
         public ActionResult Index()
         {
             return View("Index", "Home", new { area = "" });
         } //return to main homepage
+        #endregion
+
+        #region POST
         [HttpGet]
         public ActionResult CreateProject()
         {
             if (Session["RoleID"] != null)
             {
-                ViewModel projectViewModel = new ViewModel();
-                projectViewModel.Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts());
+                ViewModel projectViewModel = new ViewModel
+                {
+                    Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts()),
+                    Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty())
+                };
                 projectViewModel.SingleProject.User_ID = (int)Session["UserId"];
-                projectViewModel.Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty());
                 return View(projectViewModel);
             }
             else
@@ -40,6 +48,7 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         } //create project for all users
+
         [HttpPost]
         public ActionResult CreateProject(ViewModel projectToAdd)
         {
@@ -48,8 +57,10 @@ namespace MyCraftProjectSharingApp.Controllers
                 if (ModelState.IsValid)
                 {
                     _projectBusinessLogic.AddProject(_projectMapper.MapProject(projectToAdd.SingleProject));
-                    ViewModel projects = new ViewModel();
-                    projects.Projects = _projectMapper.MapProjects(_projectBusinessLogic.GetProjects());
+                    ViewModel projects = new ViewModel
+                    {
+                        Projects = _projectMapper.MapProjects(_projectBusinessLogic.GetProjects())
+                    };
                     _houseController.AddPoints(20, (int)Session["House_ID"]);
                     if ((int)Session["House_ID"] == 1)
                     {
@@ -71,10 +82,12 @@ namespace MyCraftProjectSharingApp.Controllers
                 }
                 else
                 {
-                    ViewModel projectViewModel = new ViewModel();
-                    projectViewModel.Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts());
+                    ViewModel projectViewModel = new ViewModel
+                    {
+                        Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty()),
+                        Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts())
+                    };
                     projectViewModel.SingleProject.User_ID = (int)Session["UserId"];
-                    projectViewModel.Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty());
                     return View(projectViewModel);
                 }
             }
@@ -84,17 +97,23 @@ namespace MyCraftProjectSharingApp.Controllers
             }
 
         } //create project for all users
+        #endregion
+
+        #region Gets
         public ActionResult ViewProjects()
         {
             if (Session["RoleID"] != null)
             {
-                ViewModel projects = new ViewModel();
-                ViewModel users = new ViewModel();
-                ViewModel crafts = new ViewModel();
-                projects.Projects = _projectMapper.MapProjects(_projectBusinessLogic.GetProjects());
+                ViewModel projects = new ViewModel
+                {
+                    Projects = _projectMapper.MapProjects(_projectBusinessLogic.GetProjects())
+                };
                 foreach (Projects project in projects.Projects)
                 {
-                    users.SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(project.User_ID));
+                    ViewModel users = new ViewModel
+                    {
+                        SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(project.User_ID))
+                    };
                     if (project.User_ID == users.SingleUser.User_ID)
                     {
                         project.Username = users.SingleUser.Username;
@@ -102,7 +121,10 @@ namespace MyCraftProjectSharingApp.Controllers
                 }
                 foreach (Projects project in projects.Projects)
                 {
-                    crafts.SingleCraft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(project.Craft_ID));
+                    ViewModel crafts = new ViewModel
+                    {
+                        SingleCraft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(project.Craft_ID))
+                    };
                     if (project.Craft_ID == crafts.SingleCraft.Craft_ID)
                     {
                         project.CraftName = crafts.SingleCraft.CraftName;
@@ -115,33 +137,46 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         } //view project for all users
+        #endregion
+
+        #region Patch
         [HttpGet]
-        public ActionResult UpdateProject(int projectToUpdate)
+        public ActionResult UpdateProject(int? id)
         {
-            if (Session["RoleID"] != null)
+            if (id != null)
             {
-                Projects project = new Projects();
-                project = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToUpdate));
-                if ((int)Session["UserId"] == project.User_ID || (int)Session["RoleID"] == 3)
+                if (Session["RoleID"] != null)
                 {
-                    ViewModel projectViewModel = new ViewModel();
-                    projectViewModel.Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts());
-                    projectViewModel.SingleProject = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToUpdate));
-                    projectViewModel.SingleProject.User_ID = project.User_ID;
-                    projectViewModel.Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty());
-                    //if (project.DifficultyLevel = 'Beginner')
-                    return View(projectViewModel);
+                    int projectToUpdate = ConvertToInt(id);
+                    Projects project = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToUpdate));
+                    if ((int)Session["UserId"] == project.User_ID || (int)Session["RoleID"] == 3)
+                    {
+                        ViewModel projectViewModel = new ViewModel
+                        {
+                            Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts()),
+                            SingleProject = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToUpdate)),
+                            Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty())
+                        };
+                        projectViewModel.SingleProject.User_ID = project.User_ID;
+                        //if (project.DifficultyLevel = 'Beginner')
+                        return View(projectViewModel);
+                    }
+                    else
+                    {
+                        return RedirectToAction("PageError", "Error", new { area = "" });
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("PageError", "Error", new { area = "" });
+                    return RedirectToAction("Login", "Users", new { area = "" });
                 }
             }
             else
             {
-                return RedirectToAction("Login", "Users", new { area = "" });
+                return RedirectToAction("PageError", "Error", new { area = "" });
             }
         }   //update project for all users
+
         [HttpPost]
         public ActionResult UpdateProject(ViewModel projectToUpdate)
         {
@@ -149,8 +184,7 @@ namespace MyCraftProjectSharingApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Projects project = new Projects();
-                    project = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToUpdate.SingleProject.Project_ID));
+                    Projects project = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToUpdate.SingleProject.Project_ID));
                     if ((int)Session["UserId"] == projectToUpdate.SingleProject.User_ID || (int)Session["RoleID"] == 3)
                     {
                         _projectBusinessLogic.UpdateProject(projectToUpdate.SingleProject.Project_ID, _projectMapper.MapProject(projectToUpdate.SingleProject));
@@ -164,11 +198,13 @@ namespace MyCraftProjectSharingApp.Controllers
                 }
                 else
                 {
-                    ViewModel projectViewModel = new ViewModel();
-                    projectViewModel.Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts());
+                    ViewModel projectViewModel = new ViewModel
+                    {
+                        Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts()),
+                        Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty())
+                    };
                     projectViewModel.SingleProject.Project_ID = projectToUpdate.SingleProject.Project_ID;
                     projectViewModel.SingleProject.User_ID = projectToUpdate.SingleProject.User_ID;
-                    projectViewModel.Difficulties = _difficultyMapper.MapDifficulties(_difficultyBusinessLogic.GetDifficulty());
                     return View(projectViewModel);
                 }
             }
@@ -178,37 +214,56 @@ namespace MyCraftProjectSharingApp.Controllers
 
             }
         }  //update project for all users
-        public ActionResult DeleteProject(int projectToDelete)
+        #endregion
+
+        #region Delete
+        public ActionResult DeleteProject(int? id)
         {
-            if (Session["RoleID"] != null)
+            if (id != null)
             {
-                Projects project = new Projects();
-                project = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToDelete));
-                if ((int)Session["UserId"] == project.User_ID || (int)Session["RoleID"] != 3)
+                if (Session["RoleID"] != null)
                 {
-                    _projectBusinessLogic.DeleteProject(projectToDelete);
-                    _houseController.AddPoints(-20, (int)Session["House_ID"]);
-                    TempData["ProjectDeleted"] = "Project has been deleted successfully.";
-                    return RedirectToAction("ViewProjects", "Projects", new { area = "" });
+                    int projectToDelete = ConvertToInt(id);
+                    Projects project = _projectMapper.MapProject(_projectBusinessLogic.GetProjectByProjectId(projectToDelete));
+                    if ((int)Session["UserId"] == project.User_ID || (int)Session["RoleID"] != 3)
+                    {
+                        _projectBusinessLogic.DeleteProject(projectToDelete);
+                        _houseController.AddPoints(-20, (int)Session["House_ID"]);
+                        TempData["ProjectDeleted"] = "Project has been deleted successfully.";
+                        return RedirectToAction("ViewProjects", "Projects", new { area = "" });
+                    }
+                    else
+                    {
+                        ViewModel user = new ViewModel
+                        {
+                            SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(project.User_ID))
+                        };
+                        if (project.User_ID == user.SingleUser.User_ID)
+                        {
+                            _houseController.AddPoints(-20, user.SingleUser.House_ID);
+                        }
+                        _projectBusinessLogic.DeleteProject(projectToDelete);
+                        TempData["ProjectDeleted"] = "Project has been deleted successfully.";
+                        return RedirectToAction("ViewProjects", "Projects", new { area = "" });
+                    }
                 }
                 else
                 {
-                    ViewModel user = new ViewModel();
-                    user.SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(project.User_ID));
-                    if (project.User_ID == user.SingleUser.User_ID)
-                    {
-                        _houseController.AddPoints(-20, user.SingleUser.House_ID);
-                    }
-                    _projectBusinessLogic.DeleteProject(projectToDelete);
-                    TempData["ProjectDeleted"] = "Project has been deleted successfully.";
-                    return RedirectToAction("ViewProjects", "Projects", new { area = "" });
+                    return RedirectToAction("Login", "Users", new { area = "" });
                 }
             }
             else
             {
-                return RedirectToAction("Login", "Users", new { area = "" });
-
+                return RedirectToAction("PageError", "Error", new { area = "" });
             }
         } //delete project for user based on role or userId
+        #endregion
+
+        #region NullCheck
+        public int ConvertToInt(int? id)
+        {
+            return Convert.ToInt32(id);
+        }
+        #endregion
     }
 }

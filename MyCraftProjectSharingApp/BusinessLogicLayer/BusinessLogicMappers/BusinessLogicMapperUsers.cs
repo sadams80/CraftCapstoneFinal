@@ -11,36 +11,54 @@ namespace BusinessLogicLayer.BusinessLogicMappers
     public class BusinessLogicMapperUsers
     {
         static PaswordHashLogic _businessLogic = new PaswordHashLogic();
+
+        #region Mappers
         public DataAccessUsers MapUser(BusinessLogicUsers bUser)
         {
-            DataAccessUsers dUser = new DataAccessUsers();
-            dUser.User_ID = bUser.User_ID;
-            dUser.FirstName = bUser.FirstName;
-            dUser.LastName = bUser.LastName;
-            dUser.Age = bUser.Age;
-            dUser.Gender = bUser.Gender;
-            dUser.Email = bUser.Email;
-            dUser.Username = bUser.Username;
-            dUser.Password = _businessLogic.HashPassword(bUser.Password);
-            dUser.House_ID = bUser.House_ID;
-            dUser.Role_ID = bUser.Role_ID;
+            if (bUser == null)
+            {
+                return null;
+            }
+            DataAccessUsers dUser = new DataAccessUsers
+            {
+                User_ID = bUser.User_ID,
+                FirstName = bUser.FirstName,
+                LastName = bUser.LastName,
+                Age = bUser.Age,
+                Gender = bUser.Gender,
+                Email = bUser.Email,
+                Username = bUser.Username,
+                Password = _businessLogic.HashPassword(bUser.Password),
+                House_ID = bUser.House_ID,
+                Role_ID = bUser.Role_ID
+            };
             return dUser;
         }
+
         public BusinessLogicUsers MapUser(DataAccessUsers dUser)
         {
-            BusinessLogicUsers bUser = new BusinessLogicUsers();
-            bUser.User_ID = dUser.User_ID;
-            bUser.FirstName = dUser.FirstName;
-            bUser.LastName = dUser.LastName;
-            bUser.Age = dUser.Age;
-            bUser.Gender = dUser.Gender;
-            bUser.Email = dUser.Email;
-            bUser.Username = dUser.Username;
-            bUser.Password = dUser.Password;
-            bUser.House_ID = dUser.House_ID;
-            bUser.Role_ID = dUser.Role_ID;
+            if (dUser == null)
+            {
+                return null;
+            }
+            BusinessLogicUsers bUser = new BusinessLogicUsers
+            {
+                User_ID = dUser.User_ID,
+                FirstName = dUser.FirstName,
+                LastName = dUser.LastName,
+                Age = dUser.Age,
+                Gender = dUser.Gender,
+                Email = dUser.Email,
+                Username = dUser.Username,
+                Password = dUser.Password,
+                House_ID = dUser.House_ID,
+                Role_ID = dUser.Role_ID,
+            };
             return bUser;
         }
+        #endregion
+
+        #region Table Mappers
         public List<BusinessLogicUsers> MapUsers(List<DataAccessUsers> dUsers)
         {
             List<BusinessLogicUsers> bUsers = new List<BusinessLogicUsers>();
@@ -59,6 +77,6 @@ namespace BusinessLogicLayer.BusinessLogicMappers
             }
             return dUsers;
         }
-
+        #endregion
     }
 }

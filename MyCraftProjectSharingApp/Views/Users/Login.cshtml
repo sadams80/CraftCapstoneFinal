@@ -22,14 +22,8 @@
     }
     <div>
         <div>
-            @Html.ValidationMessageFor(m => m.SingleUser.Username)
-        </div>
-        <div>
             @Html.LabelFor(m => m.SingleUser.Username, new { @class = "LabelFormat" })
             @Html.TextBoxFor(m => m.SingleUser.Username, new { @class = "form-control TextboxFormat" })
-        </div>
-        <div>
-            @Html.ValidationMessageFor(m => m.SingleUser.Password)
         </div>
         <div>
             @Html.LabelFor(m => m.SingleUser.Password, new { @class = "LabelFormat" })

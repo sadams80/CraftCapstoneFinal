@@ -37,7 +37,9 @@
                 @if ((int)Session["RoleID"] == 3 || (int)Session["UserId"] == craft.User_ID)
                 {
                     <td>@Html.ActionLink("Edit", "UpdateCraft", "Crafts", routeValues: new { craftToUpdate = craft.Craft_ID }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })</td>
-                    <td>@Html.ActionLink("Delete", "DeleteCraft", "Crafts", routeValues: new { craftToDelete = craft.Craft_ID }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })</td>
+                    <td>
+                        @Html.ActionLink("Delete", "DeleteCraft", new { craftToDelete = craft.Craft_ID }, new { onclick = "return confirm('Are sure wants to delete?');" })
+                    </td>
                 }
             </tr>
         }

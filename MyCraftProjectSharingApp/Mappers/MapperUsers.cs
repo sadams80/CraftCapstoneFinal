@@ -11,32 +11,44 @@ namespace MyCraftProjectSharingApp.Mappers
     {
         public BusinessLogicUsers MapUser(Users user)
         {
-            BusinessLogicUsers bUser = new BusinessLogicUsers();
-            bUser.User_ID = user.User_ID;
-            bUser.FirstName = user.FirstName;
-            bUser.LastName = user.LastName;
-            bUser.Age = user.Age;
-            bUser.Gender = user.Gender;
-            bUser.Email = user.Email;
-            bUser.Username = user.Username;
-            bUser.Password = user.Password;
-            bUser.House_ID = user.House_ID;
-            bUser.Role_ID = user.Role_ID;
+            if (user == null)
+            {
+                return null;
+            }
+            BusinessLogicUsers bUser = new BusinessLogicUsers
+            {
+                User_ID = user.User_ID,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                Gender = user.Gender,
+                Email = user.Email,
+                Username = user.Username,
+                Password = user.Password,
+                House_ID = user.House_ID,
+                Role_ID = user.Role_ID
+            };
             return bUser;
         }
         public Users MapUser(BusinessLogicUsers bUser)
         {
-            Users user = new Users();
-            user.User_ID = bUser.User_ID;
-            user.FirstName = bUser.FirstName;
-            user.LastName = bUser.LastName;
-            user.Age = bUser.Age;
-            user.Gender = bUser.Gender;
-            user.Email = bUser.Email;
-            user.Username = bUser.Username;
-            user.Password = bUser.Password;
-            user.House_ID = bUser.House_ID;
-            user.Role_ID = bUser.Role_ID;
+            if (bUser == null)
+            {
+                return null;
+            }
+            Users user = new Users
+            {
+                User_ID = bUser.User_ID,
+                FirstName = bUser.FirstName,
+                LastName = bUser.LastName,
+                Age = bUser.Age,
+                Gender = bUser.Gender,
+                Email = bUser.Email,
+                Username = bUser.Username,
+                Password = bUser.Password,
+                House_ID = bUser.House_ID,
+                Role_ID = bUser.Role_ID
+            };
             return user;
         }
         public List<BusinessLogicUsers> MapUsers(List<Users> users)

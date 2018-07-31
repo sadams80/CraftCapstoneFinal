@@ -11,24 +11,31 @@ namespace MyCraftProjectSharingApp.Controllers
 {
     public class CraftsController : Controller
     {
+        #region Instances
         // GET: Crafts
         static CraftsLogic _craftBusinessLogic = new CraftsLogic();
         static UsersLogic _userBusinessLogic = new UsersLogic();
         static MapperCrafts _craftMapper = new MapperCrafts();
         static MapperUsers _userMapper = new MapperUsers();
         static HousesController _houseController = new HousesController();
+        #endregion
+
+        #region Index
         public ActionResult Index()
         {
             return View("Index", "Home", new { are = "" });
         } //returns to home controller homepage
+        #endregion
+
+        #region Post
         [HttpGet]
         public ActionResult CreateCraft()
         {
-            ViewModel craftViewModel = new ViewModel();
             if (Session["RoleID"] != null)
             {
                 if (Session["UserId"] != null && (int)Session["RoleID"] != 1)
                 {
+                    ViewModel craftViewModel = new ViewModel();
                     craftViewModel.SingleCraft.User_ID = (int)Session["UserId"];
                     return View(craftViewModel);
                 }
@@ -42,6 +49,7 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         } //create craft for power user and admin
+
         [HttpPost]
         public ActionResult CreateCraft(ViewModel craftToAdd)
         {
@@ -51,9 +59,8 @@ namespace MyCraftProjectSharingApp.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        Crafts craft = new Crafts();
-                        craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftName(craftToAdd.SingleCraft.CraftName));
-                        if (craft.CraftName == null)
+                        Crafts craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftName(craftToAdd.SingleCraft.CraftName));
+                        if (craft == null)
                         {
                             _craftBusinessLogic.AddCraft(_craftMapper.MapCraft(craftToAdd.SingleCraft));
                             _houseController.AddPoints(50, (int)Session["House_ID"]);
@@ -83,7 +90,7 @@ namespace MyCraftProjectSharingApp.Controllers
                     }
                     else
                     {
-                        return View();
+                        return View(craftToAdd);
                     }
                 }
                 else
@@ -96,16 +103,23 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         } //create craft for power user and admin
+        #endregion
+
+        #region Gets
         public ActionResult ViewAllCrafts()
         {
             if (Session["RoleID"] != null)
             {
-                ViewModel crafts = new ViewModel();
-                ViewModel users = new ViewModel();
-                crafts.Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts());
+                ViewModel crafts = new ViewModel
+                {
+                    Crafts = _craftMapper.MapCrafts(_craftBusinessLogic.GetCrafts())
+                };
                 foreach (Crafts craft in crafts.Crafts)
                 {
-                    users.SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(craft.User_ID));
+                    ViewModel users = new ViewModel
+                    {
+                        SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(craft.User_ID))
+                    };
                     if (craft.User_ID == users.SingleUser.User_ID)
                     {
                         craft.Username = users.SingleUser.Username;
@@ -118,17 +132,22 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         } //View all crafts for individual and admin
+        #endregion
+
+        #region Patch
         [HttpGet]
-        public ActionResult UpdateCraft(int craftToUpdate)
+        public ActionResult UpdateCraft(int? id)
         {
             if (Session["RoleID"] != null)
             {
-                Crafts craft = new Crafts();
-                craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(craftToUpdate));
+                int craftToUpdate = ConvertToInt(id);
+                Crafts craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(craftToUpdate));
                 if ((int)Session["UserId"] == craft.User_ID && (int)Session["RoleID"] != 1 || (int)Session["RoleID"] == 3)
                 {
-                    ViewModel craftViewModel = new ViewModel();
-                    craftViewModel.SingleCraft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(craftToUpdate));
+                    ViewModel craftViewModel = new ViewModel
+                    {
+                        SingleCraft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(craftToUpdate))
+                    };
                     craftViewModel.SingleCraft.User_ID = craft.User_ID;
                     return View(craftViewModel);
                 }
@@ -151,9 +170,8 @@ namespace MyCraftProjectSharingApp.Controllers
                 {
                     if ((int)Session["UserId"] == craftToUpdate.SingleCraft.User_ID || (int)Session["RoleID"] == 3)
                     {
-                        Crafts craft = new Crafts();
-                        craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftName(craftToUpdate.SingleCraft.CraftName));
-                        if (craft.CraftName == null || craft.CraftName == craftToUpdate.SingleCraft.CraftName)
+                        Crafts craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftName(craftToUpdate.SingleCraft.CraftName));
+                        if (craft == null || craft.CraftName == craftToUpdate.SingleCraft.CraftName)
                         {
                             if (craft.User_ID == (int)Session["UserId"] || (int)Session["RoleId"] == 3)
                             {
@@ -169,7 +187,7 @@ namespace MyCraftProjectSharingApp.Controllers
                         else
                         {
                             TempData["CraftError"] = "Craft name already exists";
-                            return View();
+                            return View(craftToUpdate);
                         }
                     }
                     else
@@ -179,7 +197,7 @@ namespace MyCraftProjectSharingApp.Controllers
                 }
                 else
                 {
-                    return View();
+                    return View(craftToUpdate);
                 }
             }
             else
@@ -187,14 +205,17 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         }  //update craft for power user and admin
-        public ActionResult DeleteCraft(int craftToDelete)
+        #endregion
+
+        #region Delete
+        public ActionResult DeleteCraft(int? id)
         {
             if (Session["RoleID"] != null)
             {
                 if ((int)Session["RoleID"] != 1)
                 {
-                    Crafts craft = new Crafts();
-                    craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(craftToDelete));
+                    int craftToDelete = ConvertToInt(id);
+                    Crafts craft = _craftMapper.MapCraft(_craftBusinessLogic.GetCraftByCraftId(craftToDelete));
                     if ((int)Session["UserId"] == craft.User_ID && (int)Session["RoleID"] != 3)
                     {
                         _craftBusinessLogic.DeleteCraft(craftToDelete);
@@ -204,8 +225,10 @@ namespace MyCraftProjectSharingApp.Controllers
                     }
                     else
                     {
-                        ViewModel user = new ViewModel();
-                        user.SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(craft.User_ID));
+                        ViewModel user = new ViewModel
+                        {
+                            SingleUser = _userMapper.MapUser(_userBusinessLogic.GetUserByUserId(craft.User_ID))
+                        };
                         if (craft.User_ID == user.SingleUser.User_ID)
                         {
                             _houseController.AddPoints(-50, user.SingleUser.House_ID);
@@ -225,5 +248,13 @@ namespace MyCraftProjectSharingApp.Controllers
                 return RedirectToAction("Login", "Users", new { area = "" });
             }
         } //delete craft for power user and admin
+        #endregion
+
+        #region NullCheck
+        public int ConvertToInt(int? id)
+        {
+            return Convert.ToInt32(id);
+        }
+        #endregion
     }
 }

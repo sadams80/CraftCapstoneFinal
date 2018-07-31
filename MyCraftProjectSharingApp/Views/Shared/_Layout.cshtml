@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
 <html>
-<div id="backgroundmap">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - My ASP.NET Application</title>
-        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <script src="~/Scripts/modernizr-2.6.2.js"></script>
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hogwarts Crafters</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div id="backgroundmap">
         <div class="navbar navbar-inverse navbar-fixed-top" style="font-size: 16px">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -38,7 +39,7 @@
                     </li>
                     <li class="dropdown">
                         @if (Session["RoleId"] != null)
-            {
+                        {
                             <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Account Menu <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>@Html.ActionLink("My Information", "ViewUserByUserId", "Users", null, new { id = "item 1" })</li>
@@ -47,14 +48,14 @@
                     </li>
                 </ul>
                 @if (Session["RoleID"] == null)
-            {
+                {
                     <div style="float:right">
                         @Html.ActionLink("Register", "CreateUser", "Users", new { area = "" }, new { @class = "navbar-brand" })
                         @Html.ActionLink("Login", "Login", "Users", new { area = "" }, new { @class = "navbar-brand" })
                     </div>
                 }
                 @if (Session["RoleId"] != null)
-            {
+                {
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-right">
                             <li class="dropdown">
@@ -72,9 +73,9 @@
         <div class="page-header">
             <div class="housebanner">
                 @if (Session["RoleId"] != null)
-            {
-                if ((int)Session["House_ID"] == 1)
                 {
+                    if ((int)Session["House_ID"] == 1)
+                    {
                         <div id="gryffindor">
 
                         </div>
@@ -107,7 +108,7 @@
 
                 }
                 @if (Session["RoleId"] == null)
-            {
+                {
                     <div id="hogwarts">
 
                     </div>
@@ -121,14 +122,14 @@
             @RenderBody()
 
             <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <footer style="padding-top:150px;">
+                <p>&copy; @DateTime.Now.Year - Hogwarts Crafters</p>
             </footer>
 
         </div>
         <script src="~/Scripts/jquery-1.10.2.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
+    </div>
+</body>
 
-    </body>
-</div>
 </html>
